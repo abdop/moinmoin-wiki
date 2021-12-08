@@ -65,13 +65,13 @@ class Config(multiconfig.DefaultConfig):
     # Wiki identity ----------------------------------------------------
 
     # Site name, used by default for wiki name-logo [Unicode]
-    sitename = u'Untitled Wiki'
+    sitename = u'VoIP FRA Wiki'
 
     # Wiki logo. You can use an image, text or both. [Unicode]
     # For no logo or text, use '' - the default is to show the sitename.
     # See also url_prefix setting below!
     #logo_string = u'<img src="%s/common/moinmoin.png" alt="MoinMoin Logo">' % url_prefix_static
-    logo_string = u'<img src="%s/common/logo.png" alt="Logo">' % url_prefix_static
+    logo_string = u'<img src="%s/common/logo.png" alt="VoIP FRA Wiki">' % url_prefix_static
 
     # name of entry page / front page [Unicode], choose one of those:
 
@@ -107,20 +107,23 @@ class Config(multiconfig.DefaultConfig):
     # IMPORTANT: grant yourself admin rights! replace YourName with
     # your user name. See HelpOnAccessControlLists for more help.
     # All acl_rights_xxx options must use unicode [Unicode]
-    #acl_rights_before = u"mmAdmin:read,write,delete,revert,admin"
+    acl_rights_before = u"mmAdmin:read,write,delete,revert,admin AdminGroup:read,write,delete,revert,admin FraGroup:read Trusted:read Known:read All:"
 
     # This is the default ACL that applies to pages without an ACL.
     # Adapt it to your needs, consider using an EditorGroup.
-    acl_rights_default = u"Trusted:read,write,delete,revert Known:read All:read,write,delete,revert"
+    acl_rights_default = u"Trusted:read Known:read All:"
 
     # The default (ENABLED) password_checker will keep users from choosing too
     # short or too easy passwords. If you don't like this and your site has
     # rather low security requirements, feel free to DISABLE the checker by:
-    #password_checker = None # None means "don't do any password strength checks"
+    password_checker = None # None means "don't do any password strength checks"
 
     # Link spam protection for public wikis (Uncomment to enable)
     # Needs a reliable internet connection.
     #from MoinMoin.security.antispam import SecurityPolicy
+
+    # Editor ------------------------------------------------------------
+    editor_force = False #if True, force using the default editor
 
 
     # Mail --------------------------------------------------------------

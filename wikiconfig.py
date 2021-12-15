@@ -33,6 +33,8 @@ from MoinMoin.config import multiconfig, url_prefix_static
 class Config(multiconfig.DefaultConfig):
 
     # Critical setup  ---------------------------------------------------
+    # stop new accounts being created
+    # actions_excluded = MoinMoin.config.multiconfig.DefaultConfig.actions_excluded + ['newaccount']
 
     # Directory containing THIS wikiconfig:
     wikiconfig_dir = os.path.abspath(os.path.dirname(__file__))
@@ -187,3 +189,30 @@ class Config(multiconfig.DefaultConfig):
     # Enable graphical charts, requires gdchart.
     #chart_options = {'width': 600, 'height': 300}
 
+    # LDAP for use in Authenticating
+    from MoinMoin.auth.ldap_login import LDAPAuth
+    ldap_authenticator1 = LDAPAuth(
+        server_uri='ldap://ldap_srv/',
+        bind_dn='uid=%(admin)s,dc=voip,dc=fra',
+        bind_pw='%(voip)s',
+        scope=2,
+        referrals=0,
+        search_filter='(uid=%(username)s)',
+        givenname_attribute='givenName',
+        surname_attribute='sn',
+        aliasname_attribute='displayName',
+        email_attribute='mailRoutingAddress',
+        email_callback=None,
+        coding='utf-8',
+        timeout=10,
+        start_tls=0,
+        tls_cacertdir=None,
+        tls_cacertfile=None,
+        tls_certfile=None,
+        tls_keyfile=None,
+        tls_require_cert=0,
+        bind_once=True,
+        autocreate=True,
+    )
+    auth = [ldap_authenticator1, ]
+    cookie_lifetime = 1

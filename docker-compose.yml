@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  ldap_srv:
+    image: osixia/openldap
+    hostname: ldap_srv
+    environment:
+      LDAP_ORGANISATION : VoIP FRA
+      LDAP_DOMAIN : voip.fra
+      LDAP_ADMIN_PASSWORD : voip
+
+  ldapadmin:
+    image: osixia/phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS : ldap_srv
+    ports:
+      - "6443:443"
+    depends_on:
+      - ldap_srv
+
+  wiki_voip:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - ldap_srv
+    ports:
+      - "8210:80/tcp"
+      - "8211:443/tcp"

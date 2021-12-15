@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -qqy --no-install-recommends \
   uwsgi \
   uwsgi-plugin-python \
   rsyslog \
+  python-ldap \
   busybox
 
 # Download MoinMoin

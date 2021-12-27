@@ -193,15 +193,16 @@ class Config(multiconfig.DefaultConfig):
     from MoinMoin.auth.ldap_login import LDAPAuth
     ldap_authenticator1 = LDAPAuth(
         server_uri='ldap://ldap_srv/',
-        bind_dn='uid=%(admin)s,dc=voip,dc=fra',
-        bind_pw='%(voip)s',
+        bind_dn='cn=admin,dc=voip,dc=fra',
+        bind_pw='voip',
+        base_dn = 'ou=voipwiki,dc=voip,dc=fra',
         scope=2,
         referrals=0,
-        search_filter='(uid=%(username)s)',
-        givenname_attribute='givenName',
+        search_filter='(cn=%(username)s)',
+        givenname_attribute=None,
         surname_attribute='sn',
-        aliasname_attribute='displayName',
-        email_attribute='mailRoutingAddress',
+        aliasname_attribute=None,
+        email_attribute=None,
         email_callback=None,
         coding='utf-8',
         timeout=10,
@@ -215,4 +216,4 @@ class Config(multiconfig.DefaultConfig):
         autocreate=True,
     )
     auth = [ldap_authenticator1, ]
-    cookie_lifetime = 1
+    cookie_lifetime = (0, 1)
